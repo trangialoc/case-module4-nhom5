@@ -1,0 +1,36 @@
+
+#left, #left ul, #left li{
+    padding:0;
+    margin:0;
+}
+
+#left li{
+    list-style: none;
+    position: relative;
+    width:250px;
+    height: 30px;
+    padding:0 20px;
+    background-color: white;
+    line-height: 30px;
+    cursor:pointer;
+}
+
+#left li a{
+    text-decoration:none;
+    color: white;
+}
+
+#left li:hover{
+    background-color: #84dcc5;
+}
+
+#left ul ul{
+    position: absolute;
+    top:0;
+    left:140px;
+    visibility:hidden;
+}
+
+#left ul li:hover ul{
+    visibility:visible;
+}

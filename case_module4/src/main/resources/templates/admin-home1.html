@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>ASAHI EDUCATION</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+
+    <style>
+
+        img {
+            width: 60px;
+            height: 80px;
+        }
+
+        #left {
+            padding: 3px;
+            width: 300px;
+            min-height: 400px;
+            float: left;
+            margin-bottom: 5px;
+            border-right: 2px solid ;
+        }
+
+        #content {
+            padding: 10px;
+            width: 600px;
+            min-height: 400px;
+            float: left;
+            margin-left: 5px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        table {
+            width: 800px;
+        }
+    </style>
+    <link rel="stylesheet" th:href="@{assets/vendor/animate.css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{assets/vendor/aos/aos.css}">
+    <link rel="stylesheet" th:href="@{assets/vendor/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{assets/vendor/bootstrap-icons/bootstrap-icons.css}">
+    <link rel="stylesheet" th:href="@{assets/vendor/boxicons/css/boxicons.min.css}">
+    <link rel="stylesheet" th:href="@{assets/vendor/remixicon/remixicon.css}">
+    <link rel="stylesheet" th:href="@{assets/vendor/swiper/swiper-bundle.min.css}">
+    <link rel="stylesheet" th:href="@{assets/css/style.css}">
+    <script th:src="@{assets/js/admin-user.js}"></script>
+    <script th:src="@{assets/js/admin-teacher.js}"></script>
+    <script th:src="@{assets/js/admin-student.js}"></script>
+    <script th:src="@{assets/js/admin-officer.js}"></script>
+    <script th:src="@{assets/js/admin-course.js}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" th:href="@{assets/css/cssAdmin.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <!--    <script th:src="@{static/assets/js/admin-teacher.js}"></script>-->
+    <!--    <script src="../static/assets/js/admin-user.js"></script> -->
+
+
+    <!-- =======================================================
+    * Template Name: Mentor - v4.7.0
+    * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+        <h1 class="logo me-auto"><a href="index.html">ASAHI EDUCATION</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a th:href="@{/home}" style="text-decoration: none">Home </a></li>
+                <li class="get-started-btn">Welcome: <span th:text="${user}"></span></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+        <a th:href="@{/logout}" class="get-started-btn" style="text-decoration: none">Logout</a>
+
+    </div>
+</header><!-- End Header -->
+<br><br><br><br>
+<!--<h5> Dear <span th:text="${user}"></span> Welcome to Admin Page</h5>-->
+<!--<div sec:authorize="isAuthenticated()">-->
+<!--</div>-->
+
+<br>
+
+<div id="left" class="col-3">
+    <ul>
+        <p><strong>Dash Board</strong></p>
+        <li>
+            <p onclick="displayManagerUser()">Management User</p>
+        </li>
+        <li>
+            <p onclick="displayManagerStudent()">Management Student</p>
+        </li>
+        <li>
+            <p onclick="displayManagerOfficer()">Management Officer</p>
+        </li>
+        <li>
+            <p onclick="displayManagerCourse()">Management Course</p>
+        </li>
+        <li>
+            <p onclick="displayManagerTeacher()">Management Teacher</p>
+        </li>
+    </ul>
+</div>
+
+
+<!--Course Management-->
+<div id="content" class="col-9">
+    <div hidden id="manager-course" style="width: 1100px">
+        <h1>Course List</h1>
+
+
+        <div>
+            <div class="row" style="float: left">
+                <button class="btn btn-primary" onclick="displayFormCreateCourse()">Create New Course</button>
+            </div>
+
+            <div class="row" style="float:right;">
+                <div class="col-6">
+                    <label><input type="text" id="searchCourse" class="form-control" placeholder="Enter a word"></label>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-info" onclick="searchCourse()"><span class="glyphicon glyphicon-search">Search</span></button>
+                </div>
+            </div>
+
+        </div>
+
+
+        <br><br>
+
+        <div>
+            <table id="courseList" class="table table-striped"></table>
+            <div id="displayPageCourse"></div>
+        </div>
+        <form hidden id="formCourse">
+            <div class="mb-3 mt-3">
+                <label for="nameCourse" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="nameCourse" placeholder="Enter name" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="codeCourse" class="form-label">Code Course:</label>
+                <input type="text" class="form-control" id="codeCourse" placeholder="Enter name" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="feeCourse" class="form-label">Fee:</label>
+                <input type="text" class="form-control" id="feeCourse" placeholder="Enter name" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="timeBase" class="form-label">Time Base:</label>
+                <input type="text" class="form-control" id="timeBase" placeholder="Enter name" required>
+            </div>
+
+            <button type="submit" id="formCourse-button" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+
+    <!--User Management-->
+    <div hidden id="manager-user" style="width: 1100px">
+        <h1>User List</h1>
+        <!--    <form id="searchFormUser">-->
+
+        <div>
+            <div class="row" style="float: left">
+                <button class="btn btn-primary" onclick="displayFormCreateUser()">Create New User</button>
+            </div>
+
+            <div class="row" style="float:right;">
+                <div class="col-6">
+                    <label><input type="text" id="searchUser" class="form-control" placeholder="Enter a word"></label>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-info" onclick="searchUser()"><span class="glyphicon glyphicon-search">Search</span></button>
+                </div>
+            </div>
+
+        </div>
+        <br><br>
+        <!--    </form>-->
+
+        <div>
+            <table id="userList" class="table table-striped"></table>
+            <div id="displayPageUser"></div>
+        </div>
+
+        <form hidden id="formUser">
+            <div class="mb-3 mt-3">
+                <label for="userFullName" class="form-label">Full Name:</label>
+                <input type="text" class="form-control" id="userFullName" placeholder="Enter Full Name" required>
+            </div>
+            <div class="mb-3">
+                <label for="userEmail" class="form-label">Email:</label>
+                <input type="text" class="form-control" id="userEmail" placeholder="Enter Email" required>
+            </div>
+            <div class="mb-3">
+                <label for="accountName" class="form-label">Username:</label>
+                <input type="text" class="form-control" id="accountName">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="text" class="form-control" id="password">
+            </div>
+            <div class="mb-3">
+                <label for="rePassword" class="form-label">RePassword:</label>
+                <input type="text" class="form-control" id="rePassword">
+            </div>
+            <div class="mb-3">
+                <label for="phoneNumber" class="form-label">Phone Number:</label>
+                <input type="text" class="form-control" id="phoneNumber">
+            </div>
+            <div class="mb-3">
+                <label for="birth" class="form-label">Birth:</label>
+                <input type="text" class="form-control" id="birth">
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Address:</label>
+                <input type="text" class="form-control" id="address">
+            </div>
+            <div class="mb-3">
+                <label for="identify" class="form-label">Identify:</label>
+                <input type="text" class="form-control" id="identify">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Role:</label>
+                <div id="div-role"></div>
+            </div>
+
+            <button type="submit" id="form-button-user" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!--Teacher Management-->
+    <div hidden id="manager-teacher" style="width: 1100px">
+        <h1>Teacher List</h1>
+
+
+        <!--    <form id="searchForm">-->
+        <div>
+            <div class="row" style="float: left">
+                <button class="btn btn-primary" onclick="displayFormCreateTeacher()">Create New Teacher</button>
+            </div>
+
+            <div class="row" style="float:right;">
+                <div class="col-6">
+                    <label><input type="text" id="searchTeacher" class="form-control" placeholder="Enter a word"></label>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-info" onclick="searchTeacher()"><span class="glyphicon glyphicon-search">Search</span></button>
+                </div>
+            </div>
+
+        </div>
+        <br><br>
+        <!--    </form>-->
+
+        <div>
+            <table id="teacherList" class="table table-striped"></table>
+            <div id="displayPageTeacher"></div>
+        </div>
+        <form hidden id="formTeacher">
+            <div class="mb-3">
+                <label class="form-label">AppUser:</label>
+                <div id="div-teacher-appUser"></div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="nameTeacher" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="nameTeacher" placeholder="Enter name" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="genderTeacher" class="form-label">Gender:</label>
+                <label><select name="gender" id="genderTeacher">
+                    <option value="male">Male</option>
+                    <option value="feMale">FeMale</option>
+                </select></label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Classes:</label>
+                <div id="div-classesCreate"></div>
+            </div>
+            <div class="mb-3">
+                <label for="imageTeacher" class="form-label">Image:</label>
+                <input type="file" class="form-control" id="imageTeacher">
+            </div>
+            <button type="submit" id="formTeacher-button" class="btn btn-primary">Submit</button>
+        </form>
+<!--        teacher edit-->
+        <form hidden id="formEditTeacher">
+            <div class="mb-3 mt-3">
+                <label for="userTeacherFullName" class="form-label">Full Name:</label>
+                <input type="text" class="form-control" id="userTeacherFullName" placeholder="Enter Full Name" required>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="nameTeacherEdit" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="nameTeacherEdit" placeholder="Enter name" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="genderTeacherEdit" class="form-label">Gender:</label>
+                <label><select name="gender" id="genderTeacherEdit">
+                    <option value="male">Male</option>
+                    <option value="feMale">FeMale</option>
+                </select></label>
+            </div>
+            <div class="mb-3">
+                <label for="userTeacherEmail" class="form-label">Email:</label>
+                <input type="text" class="form-control" id="userTeacherEmail" placeholder="Enter Email" required>
+            </div>
+            <div class="mb-3">
+                <label for="accountTeacherUsername" class="form-label">Username:</label>
+                <input type="text" class="form-control" id="accountTeacherUsername">
+            </div>
+            <div class="mb-3">
+                <label for="teacherPassword" class="form-label">Password:</label>
+                <input type="text" class="form-control" id="teacherPassword">
+            </div>
+            <div class="mb-3">
+                <label for="teacherRePassword" class="form-label">RePassword:</label>
+                <input type="text" class="form-control" id="teacherRePassword">
+            </div>
+            <div class="mb-3">
+                <label for="teacherPhoneNumber" class="form-label">Phone Number:</label>
+                <input type="text" class="form-control" id="teacherPhoneNumber">
+            </div>
+            <div class="mb-3">
+                <label for="teacherBirth" class="form-label">Birth:</label>
+                <input type="text" class="form-control" id="teacherBirth">
+            </div>
+            <div class="mb-3">
+                <label for="teacherAddress" class="form-label">Address:</label>
+                <input type="text" class="form-control" id="teacherAddress">
+            </div>
+            <div class="mb-3">
+                <label for="teacherIdentify" class="form-label">Identify:</label>
+                <input type="text" class="form-control" id="teacherIdentify">
+            </div>
+            <div class="mb-3">
+                <label for="imageTeacherEdit" class="form-label">Image:</label>
+                <input type="file" class="form-control" id="imageTeacherEdit">
+            </div>
+            <button type="submit" id="form-button-teacher-edit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!--student-->
+    <div hidden id="manager-student" style="width: 1100px">
+        <h1>Student List</h1>
+
+
+        <div>
+            <div class="row" style="float: left">
+                <button class="btn btn-primary" onclick="displayFormCreateStudent()">Create New Student</button>
+            </div>
+
+            <div class="row" style="float:right;">
+                <div class="col-6">
+                    <label><input type="text" id="searchStudent" class="form-control" placeholder="Enter a word"></label>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-info" onclick="searchStudent()"><span class="glyphicon glyphicon-search">Search</span></button>
+                </div>
+            </div>
+
+        </div>
+        <br><br>
+        <div>
+            <table id="studentList" class="table table-striped"></table>
+            <div id="displayPageStudent"></div>
+        </div>
+
+        <form hidden id="formStudent">
+            <div class="mb-3">
+                <label class="form-label">Account:</label>
+                <div id="div-account-student"></div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="nameStudent" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="nameStudent" placeholder="Enter name" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="genderStudent" class="form-label">Gender:</label>
+                <label><select name="gender" id="genderStudent">
+                    <option value="male">Male</option>
+                    <option value="feMale">FeMale</option>
+                </select></label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Courses:</label>
+                <div id="div-course"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Classes:</label>
+                <div id="div-classes-student"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Status:</label>
+                <div id="div-status-student"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="imageStudent" class="form-label">Image:</label>
+                <input type="file" class="form-control" id="imageStudent">
+            </div>
+            <button type="submit" id="form-button-student" class="btn btn-primary">Submit</button>
+        </form>
+
+        <!--    editstudent-->
+        <form hidden id="formEditStudent">
+            <div class="mb-3 mt-3">
+                <label for="userStudentFullName" class="form-label">Full Name:</label>
+                <input type="text" class="form-control" id="userStudentFullName" placeholder="Enter Full Name" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Account:</label>
+                <div id="div-account-student-edit"></div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="nameStudentEdit" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="nameStudentEdit" placeholder="Enter name" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="genderStudent" class="form-label">Gender:</label>
+                <label><select name="gender" id="genderStudentEdit">
+                    <option value="male">Male</option>
+                    <option value="feMale">FeMale</option>
+                </select></label>
+            </div>
+            <div class="mb-3">
+                <label for="userStudentEmail" class="form-label">Email:</label>
+                <input type="text" class="form-control" id="userStudentEmail" placeholder="Enter Email" required>
+            </div>
+            <div class="mb-3">
+                <label for="accountStudentName" class="form-label">Username:</label>
+                <input type="text" class="form-control" id="accountStudentName">
+            </div>
+            <div class="mb-3">
+                <label for="studentPassword" class="form-label">Password:</label>
+                <input type="text" class="form-control" id="studentPassword">
+            </div>
+            <div class="mb-3">
+                <label for="studentRePassword" class="form-label">RePassword:</label>
+                <input type="text" class="form-control" id="studentRePassword">
+            </div>
+            <div class="mb-3">
+                <label for="studentPhoneNumber" class="form-label">Phone Number:</label>
+                <input type="text" class="form-control" id="studentPhoneNumber">
+            </div>
+            <div class="mb-3">
+                <label for="studentBirth" class="form-label">Birth:</label>
+                <input type="text" class="form-control" id="studentBirth">
+            </div>
+            <div class="mb-3">
+                <label for="studentAddress" class="form-label">Address:</label>
+                <input type="text" class="form-control" id="studentAddress">
+            </div>
+            <div class="mb-3">
+                <label for="studentIdentify" class="form-label">Identify:</label>
+                <input type="text" class="form-control" id="studentIdentify">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Courses:</label>
+                <div id="div-course-edit"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Classes:</label>
+                <div id="div-classes-student-edit"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Role:</label>
+                <div id="div-role-edit"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Status:</label>
+                <div id="div-statusStudent-edit"></div>
+            </div>
+            <div class="mb-3">
+                <label for="imageStudentEdit" class="form-label">Image:</label>
+                <input type="file" class="form-control" id="imageStudentEdit">
+            </div>
+            <button type="submit" id="form-button-student-edit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <div hidden id="manager-officer" style="width: 1100px">
+        <h1>Officer List</h1>
+
+        <div>
+            <div class="row" style="float: left">
+                <button class="btn btn-primary" onclick="displayFormCreateOfficer()">Create New Officer</button>
+            </div>
+
+            <div class="row" style="float:right;">
+                <div class="col-6">
+                    <label><input type="text" id="searchOfficer" class="form-control" placeholder="Enter a word"></label>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-info" onclick="searchOfficer()"><span class="glyphicon glyphicon-search">Search</span></button>
+                </div>
+            </div>
+
+        </div>
+        <!--    </form>-->
+        <br><br>
+        <div>
+            <table id="officerList" class="table table-striped"></table>
+            <div id="displayPageOfficer"></div>
+        </div>
+
+        <form hidden id="formOfficer">
+            <div class="mb-3 mt-3">
+                <div class="mb-3">
+                    <label class="form-label">AppUser:</label>
+                    <div id="div-account-officer"></div>
+                </div>
+                <label for="nameOfficer" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="nameOfficer" placeholder="Enter name" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="genderOfficer" class="form-label">Gender:</label>
+                <label><select name="gender" id="genderOfficer">
+                    <option value="male">Male</option>
+                    <option value="feMale">FeMale</option>
+                </select></label>
+            </div>
+
+            <div class="mb-3">
+                <label for="imageOfficer" class="form-label">Image:</label>
+                <input type="file" class="form-control" id="imageOfficer">
+            </div>
+            <button type="submit" id="formOfficer-button" class="btn btn-primary">Submit</button>
+        </form>
+
+        <!--    form edit officers-->
+        <form hidden id="formEditOfficer">
+            <div class="mb-3 mt-3">
+                <label for="userOfficerFullName" class="form-label">Full Name:</label>
+                <input type="text" class="form-control" id="userOfficerFullName" placeholder="Enter Full Name" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Account:</label>
+                <div id="div-account-officer-edit"></div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="nameOfficerEdit" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="nameOfficerEdit" placeholder="Enter name" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="genderOfficerEdit" class="form-label">Gender:</label>
+                <label><select name="gender" id="genderOfficerEdit">
+                    <option value="male">Male</option>
+                    <option value="feMale">FeMale</option>
+                </select></label>
+            </div>
+            <div class="mb-3">
+                <label for="userOfficerEmail" class="form-label">Email:</label>
+                <input type="text" class="form-control" id="userOfficerEmail" placeholder="Enter Email" required>
+            </div>
+            <div class="mb-3">
+                <label for="accountOfficerUsername" class="form-label">Username:</label>
+                <input type="text" class="form-control" id="accountOfficerUsername">
+            </div>
+            <div class="mb-3">
+                <label for="officerPassword" class="form-label">Password:</label>
+                <input type="text" class="form-control" id="officerPassword">
+            </div>
+            <div class="mb-3">
+                <label for="officerRePassword" class="form-label">RePassword:</label>
+                <input type="text" class="form-control" id="officerRePassword">
+            </div>
+            <div class="mb-3">
+                <label for="officerPhoneNumber" class="form-label">Phone Number:</label>
+                <input type="text" class="form-control" id="officerPhoneNumber">
+            </div>
+            <div class="mb-3">
+                <label for="officerBirth" class="form-label">Birth:</label>
+                <input type="text" class="form-control" id="officerBirth">
+            </div>
+            <div class="mb-3">
+                <label for="officerAddress" class="form-label">Address:</label>
+                <input type="text" class="form-control" id="officerAddress">
+            </div>
+            <div class="mb-3">
+                <label for="officerIdentify" class="form-label">Identify:</label>
+                <input type="text" class="form-control" id="officerIdentify">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Role:</label>
+                <div id="div-role-officer-edit"></div>
+            </div>
+            <div class="mb-3">
+                <label for="imageOfficerEdit" class="form-label">Image:</label>
+                <input type="file" class="form-control" id="imageOfficerEdit">
+            </div>
+            <button type="submit" id="form-button-officer-edit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+</div>
+
+
+<footer id="footer" style="clear: both">
+
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-6 footer-contact">
+                    <h3>ASaHi</h3>
+                    <p>
+                        My Dinh 2 <br>
+                        Nam Tu Liem, Ha Noi City<br>
+                        Viet nam <br><br>
+                        <strong>Phone:</strong> +1 5589 55488 55<br>
+                        <strong>Email:</strong> info@example.com<br>
+                    </p>
+                </div>
+
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a th:href="@{/home}">Home</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a th:href="@{/admin}">About us</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-links">
+                    <h4>Our Services</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 col-md-6 footer-newsletter">
+                    <h4>Join Our Newsletter</h4>
+                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                    <form action="" method="post">
+                        <input type="email" name="email"><input type="submit" value="Subscribe">
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container d-md-flex py-4">
+
+        <div class="me-md-auto text-center text-md-start">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Mentor</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/ -->
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+        </div>
+        <div class="social-links text-center text-md-right pt-3 pt-md-0">
+            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div>
+    </div>
+</footer><!-- End Footer -->
+
+</body>
